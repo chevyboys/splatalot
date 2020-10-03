@@ -5,7 +5,7 @@ const cool = require('cool-ascii-faces')
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://postgres:98776Nche@localhost:5432/postgres',
-  ssl: process.env.DATABASE_URL ? true : false  
+  ssl: process.env.DATABASE_URL ? true : false
 })
 
 express()
@@ -16,6 +16,7 @@ express()
   .get('/cool', (req, res) => res.send(cool()))
   .get('/db', async (req, res) => {
     try {
+      console.log("Trying");
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM test_table');
       const results = { 'results': (result) ? result.rows : null };
